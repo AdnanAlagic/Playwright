@@ -14,6 +14,15 @@ test.only('First test', async({browser, page}) => {
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
     await expect(page).toHaveTitle('LoginPage Practise | Rahul Shetty Academy');
 
+    await page.locator('#username').fill('rahulshettyacademy');
+    await page.locator("[type='password']").fill('learning');
+    await page.locator('#signInBtn').click();
+
+    // await expect(page.locator("[style*='block']")).toContainText('Incorrect');
+
+    console.log(await page.locator('.card-body a').nth(0).textContent());
+    await expect(page.locator('.card-body a').nth(0)).toContainText('iphone X');
+
 
 
 });
