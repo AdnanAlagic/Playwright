@@ -1,25 +1,58 @@
 import { test, expect } from '@playwright/test';
+import { LandingPage } from '../mnet/PageObjects/LandingPage';
+
+//json - string - js object (best way because of standards utf-8 etc.)
+const dataSet = JSON.parse(JSON.stringify(require("../Utils/loginData.json")));
+const secondDataSet = JSON.parse(JSON.stringify(require("../Utils/loginDataParametrised.json")));
+
+
+//if we want to run one test for multiple datasets
+
+/*
+for (const data of secondDataSet) {
+  test(`test ${data.city}`, async ({ page }) => {
+
+    const landingPage = new LandingPage(page);
+  
+    landingPage.goTo();
+  
+    await page.getByRole('button', { name: 'Akzeptieren' }).click();
+  
+  
+    await page.getByPlaceholder('Hier eingeben...').click();
+    await page.getByPlaceholder('Hier eingeben...').pressSequentially(data.city);
+  
+    await page.waitForSelector('.gas-dropdown-item');
+  
+  
+    await page.locator('.gas-dropdown-item', { hasText: '80336 München' }).click();
+  
+  
+    await page.getByRole('link', { name: data.street }).click();
+    await page.getByRole('link', { name: data.number }).click();
+  });
+}
+*/
+
 
 test('test', async ({ page }) => {
 
-    
+  const landingPage = new LandingPage(page);
 
-  await page.goto('https://www.m-net.de/privatkunden');
-  
-  // Accept cookies or privacy modal
+  landingPage.goTo();
+
   await page.getByRole('button', { name: 'Akzeptieren' }).click();
-  
-  // Click on the input field and type in '80336' character by character
+
+
   await page.getByPlaceholder('Hier eingeben...').click();
-  await page.getByPlaceholder('Hier eingeben...').pressSequentially('80336'); // Type slowly to trigger dropdown
-  
-  // Wait for the dropdown to appear
-  await page.waitForSelector('.gas-dropdown-item');  // Ensure dropdown is loaded
-  
-  // Click on the dropdown item with '80336 München'
+  await page.getByPlaceholder('Hier eingeben...').pressSequentially(dataSet.city);
+
+  await page.waitForSelector('.gas-dropdown-item');
+
+
   await page.locator('.gas-dropdown-item', { hasText: '80336 München' }).click();
-  
-  // Optionally, continue with other actions
-  await page.getByRole('link', { name: 'Beethovenplatz' }).click();
-  await page.getByRole('link', { name: '4' }).click();
+
+
+  await page.getByRole('link', { name: dataSet.street }).click();
+  await page.getByRole('link', { name: dataSet.number }).click();
 });
