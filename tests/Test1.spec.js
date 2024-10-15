@@ -2,7 +2,7 @@ const {test, expect} = require('@playwright/test');
 
 
 // browser - global fixtures - (variables available accross all project)
-test.only('First test', async({browser, page}) => {
+test('Basics - test', async({browser, page}) => {
 
     // Open fresh instance of browser (same as incognito, without cookies, etc)
     // We are able to add cookies inside of newContext()
