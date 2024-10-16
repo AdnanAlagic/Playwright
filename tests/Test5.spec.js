@@ -34,8 +34,10 @@ for (const data of secondDataSet) {
 }
 */
 
+//If we want to run speicific test, use anotation @Web
+// npx playwright test --grep "@Web"
 
-test('test', async ({ page }) => {
+test('@Web test', async ({ page }) => {
 
   const landingPage = new LandingPage(page);
 
